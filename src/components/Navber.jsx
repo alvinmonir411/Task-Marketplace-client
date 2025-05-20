@@ -18,16 +18,37 @@ const Navber = () => {
   };
   const navLinks = (
     <>
-      <NavLink to="/" className="px-3 py-2 hover:text-blue-500">
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive ? "px-3 py-2 text-blue-500" : "px-3 py-2 hover:text-blue-500"
+        }
+      >
         Home
       </NavLink>
-      <NavLink to="/add-task" className="px-3 py-2 hover:text-blue-500">
-        Add Task
-      </NavLink>
-      <NavLink to="/browse-tasks" className="px-3 py-2 hover:text-blue-500">
+      <NavLink
+        to="/browse-tasks"
+        className={({ isActive }) =>
+          isActive ? "px-3 py-2 text-blue-500" : "px-3 py-2 hover:text-blue-500"
+        }
+      >
         Browse Tasks
       </NavLink>
-      <NavLink to="/my-posted-tasks" className="px-3 py-2 hover:text-blue-500">
+      <NavLink
+        to="/add-task"
+        className={({ isActive }) =>
+          isActive ? "px-3 py-2 text-blue-500" : "px-3 py-2 hover:text-blue-500"
+        }
+      >
+        Add Task
+      </NavLink>
+
+      <NavLink
+        to="/my-posted-tasks"
+        className={({ isActive }) =>
+          isActive ? "px-3 py-2 text-blue-500" : "px-3 py-2 hover:text-blue-500"
+        }
+      >
         My Posted Tasks
       </NavLink>
     </>
@@ -44,7 +65,6 @@ const Navber = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -60,11 +80,7 @@ const Navber = () => {
             {navLinks}
           </ul>
         </div>
-        <img
-          className="w-8 h-8 mr-2"
-          src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-          alt="logo"
-        />
+        <img className="w-12 h-12 mr-2" src="/images.jpg" alt="logo" />
         <Link to="/" className="text-2xl font-bold text-blue-600">
           FreelanceHub
         </Link>

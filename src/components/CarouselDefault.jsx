@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const CarouselDefault = () => {
   return (
@@ -12,9 +13,12 @@ const CarouselDefault = () => {
             <p className="text-lg">
               Find top freelancers and post tasks easily.
             </p>
-            <button className="btn bg-white text-black hover:bg-gray-300">
+            <NavLink
+              to="/browse-tasks"
+              className="btn bg-white text-black hover:bg-gray-300"
+            >
               Get Started
-            </button>
+            </NavLink>
           </div>
           <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
             <a href="#slide4" className="btn btn-circle">
