@@ -6,6 +6,7 @@ const TaskDetails = () => {
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Task load
   useEffect(() => {
     fetch(`http://localhost:3000/add-task/${id}`)
       .then((res) => res.json())
@@ -18,6 +19,23 @@ const TaskDetails = () => {
         setLoading(false);
       });
   }, [id]);
+
+  // Bids click handler
+  const handleBidClick = () => {
+    fetch(`http://localhost:3000/add-task/bid/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then(() => {
+        // Reload task to show updated bids
+        fetch(`http://localhost:3000/add-task/${id}`)
+          .then((res) => res.json())
+          .then((data) => setTask(data));
+      })
+      .catch((error) => {
+        console.error("Failed to update bid count", error);
+      });
+  };
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -65,7 +83,7 @@ const TaskDetails = () => {
     );
 
   return (
-    <div className="max-w-3xl mx-auto mt-12 p-8 bg-white rounded-lg shadow-lg border border-gray-200">
+    <div className="max-w-3xl mx-auto pt-12 p-8 bg-white rounded-lg shadow-lg border border-gray-200">
       <h1 className="text-3xl capitalize font-extrabold mb-6 text-gray-900">
         {task.title}
       </h1>
@@ -79,6 +97,9 @@ const TaskDetails = () => {
         </span>
         <span className="inline-block bg-red-100 text-red-800 text-sm font-semibold px-3 py-1 rounded-full">
           Deadline: {formatDate(task.deadline)}
+        </span>
+        <span className="inline-block bg-yellow-100 text-yellow-800 text-sm font-semibold px-3 py-1 rounded-full">
+          Bids: {task.bids || 0}
         </span>
       </div>
 
@@ -103,12 +124,20 @@ const TaskDetails = () => {
         </p>
       </section>
 
-      <Link
-        to="/browse-tasks"
-        className="inline-block mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded transition"
-      >
-        ← Back to Browse Tasks
-      </Link>
+      <div className="flex items-center justify-between mt-8">
+        <Link
+          to="/browse-tasks"
+          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded transition"
+        >
+          ← Back to Browse Tasks
+        </Link>
+        <button
+          onClick={handleBidClick}
+          className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded transition"
+        >
+          Bids Now
+        </button>
+      </div>
     </div>
   );
 };

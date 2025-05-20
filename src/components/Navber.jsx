@@ -1,13 +1,16 @@
 import React, { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import CarouselDefault from "./CarouselDefault";
 import { AuthContext } from "./../context/AuthContext";
+import { callIfFunction } from "./../../node_modules/sweetalert2/src/utils/utils";
+import { ThemeContext } from "./../context/ThemeContext ";
 
 const Navber = () => {
   const { user, logoutUser } = useContext(AuthContext);
-
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const location = useLocation();
   const handleLogout = () => {
     logoutUser()
       .then(() => {
