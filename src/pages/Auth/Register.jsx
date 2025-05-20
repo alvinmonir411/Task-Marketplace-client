@@ -24,6 +24,17 @@ const Register = () => {
         toast.error(error.message);
       });
   };
+
+  const handlePasswordValidation = (e) => {
+    const value = e.target.value;
+    const isValid = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(value);
+    e.target.setCustomValidity(
+      isValid
+        ? ""
+        : "Password must have uppercase, lowercase and be at least 6 characters"
+    );
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -32,12 +43,13 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
     const userdata = { photo, email, name };
+
     try {
       // Create the user
       const userCredential = await createUser(email, password);
       const user = userCredential.user;
 
-      // save data to db
+      // Save data to DB
       fetch("http://localhost:3000/regestation", {
         method: "POST",
         headers: {
@@ -47,11 +59,12 @@ const Register = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log("send to data ", data);
+          console.log("Data sent:", data);
           toast.success("Account created successfully!");
           navigate("/");
         });
-      // Update profile
+
+      // Update Firebase profile
       await updateUserProfile({
         displayName: name,
         photoURL: photo,
@@ -73,12 +86,13 @@ const Register = () => {
           <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
             Sign Up
           </h2>
+
+          {/* Google login */}
           <div>
-            {" "}
             <button
               type="button"
               onClick={handleGoogleLogin}
-              className=" mb-6 flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600"
+              className="mb-6 flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600"
             >
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -88,6 +102,8 @@ const Register = () => {
               Continue with Google
             </button>
           </div>
+
+          {/* Name */}
           <div className="mb-4">
             <label className="block text-gray-700">Full Name</label>
             <input
@@ -99,6 +115,7 @@ const Register = () => {
             />
           </div>
 
+          {/* Photo URL */}
           <div className="mb-4">
             <label className="block text-gray-700">Photo URL</label>
             <input
@@ -110,6 +127,7 @@ const Register = () => {
             />
           </div>
 
+          {/* Email */}
           <div className="mb-4">
             <label className="block text-gray-700">Email</label>
             <input
@@ -121,17 +139,20 @@ const Register = () => {
             />
           </div>
 
+          {/* Password */}
           <div className="mb-6">
             <label className="block text-gray-700">Password</label>
             <input
               type="password"
               name="password"
+              onInput={handlePasswordValidation}
               required
               className="w-full px-3 py-2 border rounded"
-              placeholder="********"
+              placeholder="Enter password"
             />
           </div>
 
+          {/* Submit */}
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
@@ -139,6 +160,7 @@ const Register = () => {
             Register
           </button>
 
+          {/* Redirect to login */}
           <p className="mt-4 text-center text-sm">
             Already have an account?{" "}
             <Link to="/login" className="text-blue-500 hover:underline">

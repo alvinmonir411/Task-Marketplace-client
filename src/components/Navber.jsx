@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+
 import { toast } from "react-toastify";
 import CarouselDefault from "./CarouselDefault";
+import { AuthContext } from "./../context/AuthContext";
 
 const Navber = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -44,7 +45,7 @@ const Navber = () => {
       </NavLink>
 
       <NavLink
-        to="/my-posted-tasks"
+        to={`/my-posted-tasks/`}
         className={({ isActive }) =>
           isActive ? "px-3 py-2 text-blue-500" : "px-3 py-2 hover:text-blue-500"
         }
@@ -89,36 +90,34 @@ const Navber = () => {
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        {!user ? (
-          <>
-            <NavLink to="/login" className="px-3 py-2 hover:text-green-500">
-              Login
-            </NavLink>
-            <NavLink to="/Register" className="px-3 py-2 hover:text-green-500">
-              Signup
-            </NavLink>
-          </>
-        ) : (
-          <>
-            {/* User photo with hover display name */}
-            <div className="relative group">
-              <img
-                src={user.photoURL}
-                alt="user"
-                className="w-10 h-10 rounded-full border-2 border-blue-500 cursor-pointer"
-              />
-              <div className="absolute left-1/2 -translate-x-1/2 top-10 hidden group-hover:block bg-red-500 text-white text-sm px-3 py-1 rounded shadow-md whitespace-nowrap">
-                {user.displayName}
-              </div>
-            </div>
+        {user ? (
+          <div className="relative group mr-4">
+            <img
+              src={user.photoURL}
+              alt="user"
+              className="w-10 h-10 rounded-full border-2 border-blue-500 cursor-pointer object-cover"
+            />
 
-            <button
-              onClick={handleLogout}
-              className="px-3 py-2 text-red-500 hover:underline"
-            >
-              Log out
-            </button>
-          </>
+            {/* Tooltip with displayName and logout button */}
+            <div className="absolute -right-18 -translate-x-1/2 top-8 hidden group-hover:flex flex-col items-center bg-white text-gray-800 text-sm px-4 py-3 rounded-lg shadow-lg border z-10 w-40">
+              <span className="font-semibold text-blue-600">
+                {user.displayName}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="mt-2 text-red-500 hover:underline text-sm"
+              >
+                Log out
+              </button>
+            </div>
+          </div>
+        ) : (
+          <NavLink
+            to="Register"
+            className="btn bg-blue-500 mt-2 text-white hover:underline text-sm"
+          >
+            Log in
+          </NavLink>
         )}
       </div>
     </div>

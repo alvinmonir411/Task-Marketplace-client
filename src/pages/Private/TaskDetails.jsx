@@ -66,7 +66,7 @@ const TaskDetails = () => {
 
   return (
     <div className="max-w-3xl mx-auto mt-12 p-8 bg-white rounded-lg shadow-lg border border-gray-200">
-      <h1 className="text-3xl font-extrabold mb-6 text-gray-900">
+      <h1 className="text-3xl capitalize font-extrabold mb-6 text-gray-900">
         {task.title}
       </h1>
 
