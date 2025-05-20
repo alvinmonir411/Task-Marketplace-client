@@ -1,6 +1,4 @@
 import React from "react";
-// TestimonialsSection.jsx
-
 const TestimonialsSection = () => {
   const testimonials = [
     {
@@ -27,7 +25,7 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-12 bg-gray-100 dark:bg-gray-800">
+    <section className="py-12 bg-white dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">
           What Our Users Say

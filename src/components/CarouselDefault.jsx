@@ -2,102 +2,79 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const CarouselDefault = () => {
+  const slides = [
+    {
+      id: 1,
+      image: "/Slider-1.avif",
+      title: "Welcome to Our Marketplace",
+      description: "Find top freelancers and post tasks easily.",
+      button: "Get Started",
+      link: "/browse-tasks",
+    },
+    {
+      id: 2,
+      image: "/Slider-2.avif",
+      title: "Post Your First Task Today",
+      description: "Let skilled freelancers handle the work for you.",
+      button: "Post Task",
+      link: "/add-task",
+    },
+    {
+      id: 3,
+      image: "/Slider-3.avif",
+      title: "Hire Talented Freelancers",
+      description: "Browse portfolios and find the right person for the job.",
+      button: "Browse Freelancers",
+      link: "/browse-tasks",
+    },
+  ];
+
   return (
     <div className="container mx-auto mt-5">
-      <div className="carousel w-full">
-        {/* Slide 1 */}
-        <div id="slide1" className="carousel-item relative w-full">
-          <img src="/Slider-1.avif" className="w-full h-[60vh] object-cover" />
-          <div className="absolute text-center left-1/3 top-1/3 text-white space-y-4 max-w-">
-            <h2 className="text-4xl font-bold">Welcome to Our Marketplace</h2>
-            <p className="text-lg">
-              Find top freelancers and post tasks easily.
-            </p>
-            <NavLink
-              to="/browse-tasks"
-              className="btn bg-white text-black hover:bg-gray-300"
-            >
-              Get Started
-            </NavLink>
-          </div>
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide4" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide2" className="btn btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
+      <div className="carousel w-full rounded-xl overflow-hidden">
+        {slides.map((slide, i) => (
+          <div
+            key={slide.id}
+            id={`slide${slide.id}`}
+            className="carousel-item relative w-full"
+          >
+            <img
+              src={slide.image}
+              className="w-full h-[60vh] object-cover brightness-75"
+              alt={`Slide ${slide.id}`}
+            />
 
-        {/* Slide 2 */}
-        <div id="slide2" className="carousel-item relative w-full">
-          <img src="/Slider-2.avif" className="w-full h-[60vh] object-cover" />
-          <div className="absolute text-center left-1/3 top-1/3 text-white space-y-4 max-w-lg">
-            <h2 className="text-3xl font-bold">Post Your First Task Today</h2>
-            <p className="text-lg">
-              Let skilled freelancers handle the work for you.
-            </p>
-            <button className="btn bg-white text-black hover:bg-gray-300">
-              Post Task
-            </button>
-          </div>
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide1" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide3" className="btn btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
+            {/* Overlay */}
+            <div className="absolute inset-0   bg-opacity-100 flex items-center justify-center text-white px-4">
+              <div className="text-center space-y-4">
+                <h2 className="text-4xl font-bold">{slide.title}</h2>
+                <p className="text-lg">{slide.description}</p>
+                <NavLink
+                  to={slide.link}
+                  className="btn bg-white text-black hover:bg-gray-300"
+                >
+                  {slide.button}
+                </NavLink>
+              </div>
+            </div>
 
-        {/* Slide 3 */}
-        <div id="slide3" className="carousel-item relative w-full">
-          <img src="/Slider-3.webp" className="w-full h-[60vh] object-cover" />
-          <div className="absolute text-center left-1/3 top-1/3 text-white space-y-4 max-w-lg">
-            <h2 className="text-3xl font-bold">Hire Talented Freelancers</h2>
-            <p className="text-lg">
-              Browse portfolios and find the right person for the job.
-            </p>
-            <button className="btn bg-white text-black hover:bg-gray-300">
-              Browse Freelancers
-            </button>
+            {/* Navigation buttons */}
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a
+                href={`#slide${i === 0 ? slides.length : i}`}
+                className="btn btn-circle"
+              >
+                ❮
+              </a>
+              <a
+                href={`#slide${i + 2 > slides.length ? 1 : i + 2}`}
+                className="btn btn-circle"
+              >
+                ❯
+              </a>
+            </div>
           </div>
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide2" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide4" className="btn btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
-
-        {/* Slide 4 */}
-        <div id="slide4" className="carousel-item relative w-full">
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
-            className="w-full h-[60vh] object-cover"
-          />
-          <div className="absolute text-center left-1/3 top-1/3 text-white space-y-4 max-w-lg">
-            <h2 className="text-3xl font-bold">Get Work Done Efficiently</h2>
-            <p className="text-lg">
-              Our platform makes freelancing fast and easy.
-            </p>
-            <button className="btn bg-white text-black hover:bg-gray-300">
-              Explore Now
-            </button>
-          </div>
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide3" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide1" className="btn btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
