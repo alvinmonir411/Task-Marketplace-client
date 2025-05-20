@@ -31,20 +31,31 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-
+    const userdata = { photo, email, name };
     try {
       // Create the user
       const userCredential = await createUser(email, password);
       const user = userCredential.user;
 
+      // save data to db
+      fetch("http://localhost:3000/regestation", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userdata),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("send to data ", data);
+          toast.success("Account created successfully!");
+          navigate("/");
+        });
       // Update profile
       await updateUserProfile({
         displayName: name,
         photoURL: photo,
       });
-
-      toast.success("Account created successfully!");
-      navigate("/");
     } catch (error) {
       console.error("Registration error:", error.message);
       toast.error(error.message);

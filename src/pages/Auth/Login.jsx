@@ -3,6 +3,7 @@ import Navber from "../../components/Navber";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import Footer from "../../components/Footer";
 
 const Login = () => {
   const { handlegoogllogin, loginUser, updateUserProfile } =

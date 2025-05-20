@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import CarouselDefault from "./CarouselDefault";
 
 const Navber = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -23,10 +24,10 @@ const Navber = () => {
       <NavLink to="/add-task" className="px-3 py-2 hover:text-blue-500">
         Add Task
       </NavLink>
-      <NavLink to="/tasks" className="px-3 py-2 hover:text-blue-500">
+      <NavLink to="/browse-tasks" className="px-3 py-2 hover:text-blue-500">
         Browse Tasks
       </NavLink>
-      <NavLink to="/my-posts" className="px-3 py-2 hover:text-blue-500">
+      <NavLink to="/my-posted-tasks" className="px-3 py-2 hover:text-blue-500">
         My Posted Tasks
       </NavLink>
     </>

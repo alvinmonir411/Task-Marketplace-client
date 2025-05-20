@@ -1,28 +1,51 @@
 import { createBrowserRouter } from "react-router-dom";
-
 import MainLayout from "./layout/MainLayout";
-import Navber from "./components/Navber";
-import Register from "./pages/Auth/Register";
+import CarouselDefault from "./components/CarouselDefault";
+import BrowseTasks from "./pages/BrowseTasks/BrowseTasks";
+import PrivateRoute from "./pages/Private/PrivateRoute ";
+import AddTask from "./pages/Private/AddTask";
+import MyTasks from "./pages/Private/MyTasks";
 import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: MainLayout,
+    element: <MainLayout />,
     children: [
       {
         index: true,
-        Component: Navber,
+        element: <CarouselDefault />,
+      },
+      {
+        path: "browse-tasks",
+        element: <BrowseTasks />,
+      },
+      {
+        path: "add-task",
+        element: (
+          <PrivateRoute>
+            <AddTask />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-posted-tasks",
+        element: (
+          <PrivateRoute>
+            <MyTasks />
+          </PrivateRoute>
+        ),
       },
     ],
   },
   {
-    path: "/Register",
-    Component: Register,
+    path: "/login",
+    element: <Login />,
   },
   {
-    path: "/login",
-    Component: Login,
+    path: "/register",
+    element: <Register />,
   },
 ]);
 
