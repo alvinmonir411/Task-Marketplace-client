@@ -10,6 +10,7 @@ const MainLayout = () => {
       <div className="min-h-[calc(100vh-300px)] bg-gray-100">
         <Outlet />
       </div>
+
       <Footer />
     </div>
   );

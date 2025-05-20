@@ -9,15 +9,19 @@ import Register from "./pages/Auth/Register";
 import TaskDetails from "./pages/Private/TaskDetails";
 import UpdateTask from "./pages/Private/UpdateTask";
 import PrivateRoute from "./pages/Private/PrivateRoute ";
+import NotFound from "./pages/Shared/NotFound";
+import TestimonialsSection from "./components/TestimonialsSection";
+import Home from "./pages/Home/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <NotFound />,
     element: <MainLayout />,
     children: [
       {
         index: true,
-        element: <CarouselDefault />,
+        Component: Home,
       },
       {
         path: "browse-tasks",

@@ -33,16 +33,26 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-3">Follow Us</h3>
           <div className="flex space-x-4">
-            <a href="https://facebook.com" target="_blank" rel="noreferrer">
+            <a
+              href="https://web.facebook.com/alvinmmonir321135"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FaFacebookF className="hover:text-blue-500 text-xl" />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer">
-              <FaTwitter className="hover:text-blue-400 text-xl" />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer">
+
+            <a
+              href="https://www.linkedin.com/in/alvin-monir/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FaLinkedinIn className="hover:text-blue-600 text-xl" />
             </a>
-            <a href="https://github.com" target="_blank" rel="noreferrer">
+            <a
+              href="https://github.com/alvinmonir411"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FaGithub className="hover:text-gray-300 text-xl" />
             </a>
           </div>
