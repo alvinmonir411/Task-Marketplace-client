@@ -21,7 +21,7 @@ Users can create, update, delete, and manage tasks with authentication support.
 ## Tech Stack
 
 - **Frontend:** React, React Router, Tailwind CSS, React Toastify
-- **Backend:** Node.js, Express.js, MongoDB (Atlas), Mongoose
+- **Backend:** Node.js, Express.js, MongoDB (Atlas), 
 - **Authentication:** React Context API / Firebase Auth (adjust based on your implementation)
 - **Others:** CORS, dotenv for environment variables
 
