@@ -58,11 +58,14 @@ const UpdateTask = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:3000/add-task/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(
+        `https://ferelancemarketplace.vercel.app/add-task/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
       const result = await res.json();
       if (res.ok && result.modifiedCount > 0) {
         toast.success("✅ Task updated successfully!");

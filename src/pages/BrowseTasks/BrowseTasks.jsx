@@ -6,7 +6,7 @@ const BrowseTasks = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/add-task")
+    fetch("https://ferelancemarketplace.vercel.app/add-task")
       .then((res) => res.json())
       .then((data) => {
         setTasks(data);

@@ -50,7 +50,7 @@ const Register = () => {
       const user = userCredential.user;
 
       // Save data to DB
-      fetch("http://localhost:3000/regestation", {
+      fetch("https://ferelancemarketplace.vercel.app/regestation", {
         method: "POST",
         headers: {
           "content-type": "application/json",

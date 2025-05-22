@@ -8,7 +8,7 @@ const TaskDetails = () => {
 
   // Task load
   useEffect(() => {
-    fetch(`http://localhost:3000/add-task/${id}`)
+    fetch(`https://ferelancemarketplace.vercel.app/add-task/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setTask(data);
@@ -22,13 +22,13 @@ const TaskDetails = () => {
 
   // Bids click handler
   const handleBidClick = () => {
-    fetch(`http://localhost:3000/add-task/bid/${id}`, {
+    fetch(`https://ferelancemarketplace.vercel.app/add-task/bid/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
       .then(() => {
         // Reload task to show updated bids
-        fetch(`http://localhost:3000/add-task/${id}`)
+        fetch(`https://ferelancemarketplace.vercel.app/add-task/${id}`)
           .then((res) => res.json())
           .then((data) => setTask(data));
       })

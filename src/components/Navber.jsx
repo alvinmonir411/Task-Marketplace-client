@@ -84,8 +84,12 @@ const Navber = () => {
             {navLinks}
           </ul>
         </div>
-        <img className="w-12 h-12 mr-2" src="/images.jpg" alt="logo" />
-        <Link to="/" className="text-xl md:text-2xl font-bold text-blue-600">
+        <img
+          className="hidden md:block w-12 h-12 mr-2"
+          src="/images.jpg"
+          alt="logo"
+        />
+        <Link to="/" className="text-xs md:text-2xl font-bold text-blue-600">
           FreelanceHub
         </Link>
       </div>
@@ -118,13 +122,13 @@ const Navber = () => {
           <>
             <NavLink
               to="/login"
-              className="btn bg-blue-500 mt-2 text-white hover:underline text-sm"
+              className="btn bg-blue-500 md:mt-2 text-white hover:underline text-sm"
             >
               Log in
             </NavLink>
             <NavLink
               to="/register"
-              className="btn bg-blue-500 mt-2 text-white hover:underline text-sm"
+              className="btn bg-blue-500 md:mt-2 text-white hover:underline text-sm"
             >
               Sign-Up
             </NavLink>

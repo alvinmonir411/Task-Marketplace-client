@@ -11,7 +11,7 @@ const MyTasks = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:3000/add-task")
+    fetch("https://ferelancemarketplace.vercel.app/add-task")
       .then((res) => res.json())
       .then((data) => {
         const usertaks = data.filter((taks) => taks.userEmail === user.email);
@@ -35,7 +35,7 @@ const MyTasks = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/add-task/${id}`, {
+        fetch(`https://ferelancemarketplace.vercel.app/add-task/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

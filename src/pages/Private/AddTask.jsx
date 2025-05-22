@@ -22,11 +22,14 @@ const AddTask = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/add-task", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(
+        "https://ferelancemarketplace.vercel.app/add-task",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
       const data = await res.json();
       if (res.ok && data.insertedId) {
         toast.success("✅ Task added successfully!");

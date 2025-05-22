@@ -55,7 +55,9 @@ const router = createBrowserRouter([
         path: "/update-task/:id",
         loader: ({ params }) => {
           // console.log(params);
-          return fetch(`http://localhost:3000/add-task/${params.id}`);
+          return fetch(
+            `https://ferelancemarketplace.vercel.app/add-task/${params.id}`
+          );
         },
 
         Component: UpdateTask,

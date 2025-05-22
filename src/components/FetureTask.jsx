@@ -7,7 +7,7 @@ const FeatureTask = () => {
   const [featureTasks, setFeatureTasks] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/FetureTask")
+    fetch("https://ferelancemarketplace.vercel.app/FetureTask")
       .then((res) => res.json())
       .then((data) => setFeatureTasks(data));
   }, []);
