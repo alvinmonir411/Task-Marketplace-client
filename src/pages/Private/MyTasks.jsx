@@ -120,12 +120,12 @@ const MyTasks = () => {
                       Update
                     </Link>
 
-                    <Link
-                      to={`/task-bids/${task._id}`}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
+                    <button
+                      disabled
+                      className="cursor-not-allowed bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
                     >
                       {task.bids}
-                    </Link>
+                    </button>
                     <button
                       onClick={() => handledelete(task._id)}
                       className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"

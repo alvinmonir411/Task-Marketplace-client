@@ -44,6 +44,8 @@ This project uses the following major dependencies:
 | `sweetalert2`              | ^11.21.2 | Beautiful, responsive alerts & modals                |
 | `tailwindcss`              | ^4.1.7   | Utility-first CSS framework                          |
 
+|React Awesome reveal
+
 ## Getting Started
 
 ### Prerequisites
