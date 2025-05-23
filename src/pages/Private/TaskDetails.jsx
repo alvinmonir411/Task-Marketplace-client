@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const TaskDetails = () => {
   const { id } = useParams();
@@ -31,6 +32,7 @@ const TaskDetails = () => {
         fetch(`https://ferelancemarketplace.vercel.app/add-task/${id}`)
           .then((res) => res.json())
           .then((data) => setTask(data));
+        toast(`You bid for ${task.bids} opportunities`);
       })
       .catch((error) => {
         console.error("Failed to update bid count", error);
