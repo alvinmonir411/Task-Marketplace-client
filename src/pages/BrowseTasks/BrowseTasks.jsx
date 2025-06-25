@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { FiClock, FiTag, FiDollarSign, FiUser } from "react-icons/fi";
 
 const BrowseTasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -28,85 +29,75 @@ const BrowseTasks = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 md:px-8 py-10">
-      <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">
-        🚀 Browse Freelance Tasks
+    <div className="container mx-auto px-4 md:px-8 py-12">
+      <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">
+        🛠️ Explore Freelance Opportunities
       </h2>
 
       {loading ? (
         <div className="flex justify-center items-center min-h-[200px]">
-          <svg
-            className="animate-spin h-10 w-10 text-blue-500"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            ></circle>
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8v8z"
-            ></path>
-          </svg>
+          <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500"></div>
           <span className="ml-3 text-lg font-semibold text-blue-600">
             Loading tasks...
           </span>
         </div>
       ) : tasks.length === 0 ? (
         <p className="text-center text-xl text-gray-500 mt-10">
-          No tasks available at the moment. Please check back later.
+          No tasks available right now. Please check again later.
         </p>
       ) : (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {tasks.map((task) => (
             <div
               key={task._id}
-              className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg p-6 transition duration-300"
+              className="bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col h-full"
             >
-              {/* Bid Count Badge */}
-              <div className="flex justify-end mb-2">
-                <span className="bg-amber-100 text-amber-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
-                  {task.bids || 0} Bids
+              {/* Bid count badge */}
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-sm font-medium text-gray-500 flex items-center gap-1">
+                  <FiUser className="text-yellow-500" /> {task.bidsCount || 0}{" "}
+                  Bids
+                </span>
+                <span className="text-xs text-gray-400">
+                  {task.experienceLevel}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-semibold text-gray-800 mb-3 truncate">
+              <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2">
                 {task.title}
               </h3>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">
-                  {task.category}
-                </span>
-                <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">
-                  Budget: ${task.budget}
-                </span>
-                <span className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded">
-                  Deadline: {formatDate(task.deadline)}
-                </span>
+              {/* Meta tags */}
+              <div className="flex flex-col gap-1 text-sm mb-4 text-gray-600">
+                <div className="flex items-center gap-2">
+                  <FiTag className="text-blue-500" />
+                  <span>{task.category}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FiDollarSign className="text-green-500" />
+                  <span>
+                    {task.currency} {task.budget}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FiClock className="text-red-500" />
+                  <span>{formatDate(task.deadline)}</span>
+                </div>
               </div>
 
               {/* Description */}
-              <p className="text-gray-600 text-sm mb-5 line-clamp-3">
-                {task.description || "No description provided."}
+              <p className="text-gray-700 text-sm mb-5 line-clamp-3 leading-relaxed">
+                {task.description || "No description available."}
               </p>
 
               {/* Actions */}
-              <div className="flex justify-between gap-3">
+              <div className="mt-auto pt-3">
                 <Link
                   to={`/TaskDetails/${task._id}`}
-                  className="flex-1 text-center bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition text-sm font-medium"
+                  className="block text-center bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-md transition"
                 >
-                  See Details
+                  View Task
                 </Link>
               </div>
             </div>
