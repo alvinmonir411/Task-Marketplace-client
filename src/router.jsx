@@ -15,6 +15,10 @@ import Home from "./pages/Home/Home";
 import Contactus from "./components/Contactus";
 import AboutUs from "./components/AboutUs";
 import Services from "./components/Services";
+import Dashboard from "./components/Dashboard";
+import DashboardHome from "./Dashbord/DashboardHome";
+import Totaltask from "./Dashbord/pages/Totaltask";
+import Totaluser from "./Dashbord/pages/Totaluser";
 
 const router = createBrowserRouter([
   {
@@ -40,24 +44,9 @@ const router = createBrowserRouter([
       },
       {
         path: "services",
-        Component:Services
+        Component: Services,
       },
-      {
-        path: "add-task",
-        element: (
-          <PrivateRoute>
-            <AddTask />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "my-posted-tasks",
-        element: (
-          <PrivateRoute>
-            <MyTasks />
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "/TaskDetails/:id",
         element: (
@@ -67,9 +56,42 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "dashboard",
+        Component: Dashboard,
+        children: [
+          {
+            index: true,
+            Component: DashboardHome,
+          },
+          {
+            path: "/dashboard/tasks",
+            Component: Totaltask,
+          },
+          {
+            path: "/dashboard/users",
+            Component: Totaluser,
+          },
+          {
+            path: "add-task",
+            element: (
+              <PrivateRoute>
+                <AddTask />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "my-posted-tasks",
+            element: (
+              <PrivateRoute>
+                <MyTasks />
+              </PrivateRoute>
+            ),
+          },
+        ],
+      },
+      {
         path: "/update-task/:id",
         loader: ({ params }) => {
-          // console.log(params);
           return fetch(
             `https://ferelancemarketplace.vercel.app/add-task/${params.id}`
           );

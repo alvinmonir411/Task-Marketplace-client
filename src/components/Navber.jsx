@@ -84,10 +84,11 @@ const Navber = () => {
 
   return (
     <motion.div
-    initial={{ opacity: 0, y: -40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{duration:.5}}
-      className="navbar bg-base-100 shadow-sm">
+      initial={{ opacity: 0, y: -40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="navbar bg-base-100 shadow-sm sticky top-0 z-20"
+    >
       {/* Left Side */}
       <div className="navbar-start">
         <div className="dropdown">
@@ -148,21 +149,14 @@ const Navber = () => {
                 <span className="block text-blue-600 font-semibold mb-2 text-center">
                   {user.displayName}
                 </span>
-
                 <NavLink
-                  to="/add-task"
+                  to="/dashboard"
                   onClick={() => setDropdownOpen(false)}
                   className="block text-gray-700 hover:text-blue-600 py-1"
                 >
-                  ➕ Add Task
+                  📋Dashboard
                 </NavLink>
-                <NavLink
-                  to="/my-posted-tasks"
-                  onClick={() => setDropdownOpen(false)}
-                  className="block text-gray-700 hover:text-blue-600 py-1"
-                >
-                  📋 My Posted Tasks
-                </NavLink>
+              
                 <button
                   onClick={handleLogout}
                   className="block text-red-500 hover:underline py-1 mt-2 w-full text-left"
