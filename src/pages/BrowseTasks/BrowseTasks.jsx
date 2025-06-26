@@ -46,7 +46,7 @@ const BrowseTasks = () => {
           No tasks available right now. Please check again later.
         </p>
       ) : (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
           {tasks.map((task) => (
             <div
               key={task._id}
