@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useLoaderData, useParams } from "react-router-dom";
-import { AuthContext } from "./../../context/AuthContext";
+import { useLoaderData, useParams } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
 
 const UpdateTask = () => {
   const { id } = useParams();
@@ -40,19 +40,30 @@ const UpdateTask = () => {
   }
 
   if (!data) {
-    return <div>Loading task data...</div>; // or spinner
+    return <div>Loading task data...</div>;
   }
 
   const handleUpdateTask = async (e) => {
     e.preventDefault();
-    const { title, category, description, deadline, budget } = e.target;
-
+    const form = e.target;
     const payload = {
-      title: title.value,
-      category: category.value,
-      description: description.value,
-      deadline: deadline.value,
-      budget: parseFloat(budget.value),
+      title: form.title.value,
+      category: form.category.value,
+      tags: form.tags.value
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag.length > 0),
+      description: form.description.value,
+      budget: parseFloat(form.budget.value),
+      currency: form.currency.value,
+      deadline: form.deadline.value,
+      status: form.status.value,
+      location: form.location.value,
+      experienceLevel: form.experienceLevel.value,
+      visibility: form.visibility.value,
+      isUrgent: form.isUrgent.checked,
+      bidDeadline: form.bidDeadline.value || null,
+      deliveryDate: form.deliveryDate.value || null,
       userEmail: user.email,
       userName: user.displayName,
     };
@@ -69,6 +80,7 @@ const UpdateTask = () => {
       const result = await res.json();
       if (res.ok && result.modifiedCount > 0) {
         toast.success("✅ Task updated successfully!");
+        form.reset(); 
       } else {
         throw new Error(result.error || "Failed to update task");
       }
@@ -82,6 +94,7 @@ const UpdateTask = () => {
     <div className="max-w-xl mx-auto p-6 bg-white shadow rounded pb-10 pt-10">
       <h2 className="text-4xl text-center font-semibold mb-6">Update Task</h2>
       <form onSubmit={handleUpdateTask} className="space-y-4">
+        {/* Title */}
         <div>
           <label className="block mb-1 font-medium">Task Title</label>
           <input
@@ -94,6 +107,7 @@ const UpdateTask = () => {
           />
         </div>
 
+        {/* Category */}
         <div>
           <label className="block mb-1 font-medium">Category</label>
           <select
@@ -110,6 +124,21 @@ const UpdateTask = () => {
           </select>
         </div>
 
+        {/* Tags */}
+        <div>
+          <label className="block mb-1 font-medium">
+            Tags (comma separated)
+          </label>
+          <input
+            name="tags"
+            type="text"
+            defaultValue={data.tags?.join(", ") || ""}
+            className="w-full border rounded px-3 py-2"
+            placeholder="E.g. React, Tailwind CSS, Responsive Design"
+          />
+        </div>
+
+        {/* Description */}
         <div>
           <label className="block mb-1 font-medium">Description</label>
           <textarea
@@ -121,19 +150,9 @@ const UpdateTask = () => {
           />
         </div>
 
+        {/* Budget */}
         <div>
-          <label className="block mb-1 font-medium">Deadline</label>
-          <input
-            name="deadline"
-            type="date"
-            defaultValue={data.deadline}
-            required
-            className="w-full border rounded px-3 py-2"
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 font-medium">Budget (USD)</label>
+          <label className="block mb-1 font-medium">Budget</label>
           <input
             name="budget"
             type="number"
@@ -146,6 +165,128 @@ const UpdateTask = () => {
           />
         </div>
 
+        {/* Currency */}
+        <div>
+          <label className="block mb-1 font-medium">Currency</label>
+          <select
+            name="currency"
+            defaultValue={data.currency || "USD"}
+            required
+            className="w-full border rounded px-3 py-2"
+          >
+            <option value="USD">USD</option>
+            <option value="BDT">BDT</option>
+          </select>
+        </div>
+
+        {/* Deadline */}
+        <div>
+          <label className="block mb-1 font-medium">Deadline</label>
+          <input
+            name="deadline"
+            type="date"
+            defaultValue={data.deadline ? data.deadline.split("T")[0] : ""}
+            required
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+
+        {/* Bid Deadline */}
+        <div>
+          <label className="block mb-1 font-medium">Bid Deadline</label>
+          <input
+            name="bidDeadline"
+            type="date"
+            defaultValue={
+              data.bidDeadline ? data.bidDeadline.split("T")[0] : ""
+            }
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+
+        {/* Delivery Date */}
+        <div>
+          <label className="block mb-1 font-medium">Delivery Date</label>
+          <input
+            name="deliveryDate"
+            type="date"
+            defaultValue={
+              data.deliveryDate ? data.deliveryDate.split("T")[0] : ""
+            }
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+
+        {/* Status */}
+        <div>
+          <label className="block mb-1 font-medium">Status</label>
+          <select
+            name="status"
+            defaultValue={data.status || "open"}
+            required
+            className="w-full border rounded px-3 py-2"
+          >
+            <option value="open">Open</option>
+            <option value="in progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+
+        {/* Location */}
+        <div>
+          <label className="block mb-1 font-medium">Location</label>
+          <input
+            name="location"
+            type="text"
+            defaultValue={data.location || "Remote"}
+            className="w-full border rounded px-3 py-2"
+            placeholder="E.g. Remote, Dhaka, Chittagong"
+          />
+        </div>
+
+        {/* Experience Level */}
+        <div>
+          <label className="block mb-1 font-medium">Experience Level</label>
+          <select
+            name="experienceLevel"
+            defaultValue={data.experienceLevel || "Entry"}
+            className="w-full border rounded px-3 py-2"
+          >
+            <option value="Entry">Entry</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Expert">Expert</option>
+          </select>
+        </div>
+
+        {/* Visibility */}
+        <div>
+          <label className="block mb-1 font-medium">Visibility</label>
+          <select
+            name="visibility"
+            defaultValue={data.visibility || "public"}
+            className="w-full border rounded px-3 py-2"
+          >
+            <option value="public">Public</option>
+            <option value="private">Private (invite only)</option>
+          </select>
+        </div>
+
+        {/* Is Urgent */}
+        <div className="flex items-center gap-2">
+          <input
+            id="isUrgent"
+            name="isUrgent"
+            type="checkbox"
+            defaultChecked={data.isUrgent || false}
+            className="rounded"
+          />
+          <label htmlFor="isUrgent" className="font-medium">
+            Mark as urgent
+          </label>
+        </div>
+
+        {/* User Email */}
         <div>
           <label className="block mb-1 font-medium">Your Email</label>
           <input
@@ -155,6 +296,7 @@ const UpdateTask = () => {
           />
         </div>
 
+        {/* User Name */}
         <div>
           <label className="block mb-1 font-medium">Your Name</label>
           <input
@@ -164,6 +306,7 @@ const UpdateTask = () => {
           />
         </div>
 
+        {/* Submit */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"

@@ -12,6 +12,9 @@ import PrivateRoute from "./pages/Private/PrivateRoute ";
 import NotFound from "./pages/Shared/NotFound";
 import TestimonialsSection from "./components/TestimonialsSection";
 import Home from "./pages/Home/Home";
+import Contactus from "./components/Contactus";
+import AboutUs from "./components/AboutUs";
+import Services from "./components/Services";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +29,18 @@ const router = createBrowserRouter([
       {
         path: "browse-tasks",
         element: <BrowseTasks />,
+      },
+      {
+        path: "contactus",
+        Component: Contactus,
+      },
+      {
+        path: "aboutUs",
+        Component: AboutUs,
+      },
+      {
+        path: "services",
+        Component:Services
       },
       {
         path: "add-task",

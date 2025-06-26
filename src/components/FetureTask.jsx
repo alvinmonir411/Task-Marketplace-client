@@ -31,10 +31,15 @@ const FeatureTask = () => {
   };
 
   return (
-    <section className=" mx-auto px-4 py-12">
-      <h2 className="text-4xl font-bold text-center text-blue-700 mb-10">
+    <section className=" mx-auto px-4 py-12 overflow-hidden">
+      <motion.h2
+        initial={{ opacity: 0, y: -140 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-4xl font-bold text-center text-blue-700 mb-10"
+      >
         🌟 Featured Freelance Tasks
-      </h2>
+      </motion.h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {featureTasks.map((task, i) => (

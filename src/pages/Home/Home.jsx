@@ -4,19 +4,36 @@ import TestimonialsSection from "../../components/TestimonialsSection";
 import StatsCounterSection from "../../components/StatsCounterSection";
 import WhyChooseUsSection from "../../components/WhyChooseUsSection ";
 import FetureTask from "../../components/FetureTask";
-import { Fade } from "react-awesome-reveal";
+
+import { motion } from 'framer-motion';
 
 const Home = () => {
   return (
-    <div className="container mx-auto">
-      <Fade cascade damping={0.3} triggerOnce>
-        <CarouselDefault />
-        <FetureTask />
+    <motion.div className="container mx-auto">
+      <CarouselDefault />
+      <FetureTask />
+      <motion.div
+        initial={{ opacity: 0, y: -40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <TestimonialsSection />
-        <StatsCounterSection />
-        <WhyChooseUsSection />
-      </Fade>
-    </div>
+        <motion.div
+          initial={{ opacity: 0, y: -40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <StatsCounterSection />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: -40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <WhyChooseUsSection />
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

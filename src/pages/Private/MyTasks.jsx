@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
+import { motion, AnimatePresence } from "framer-motion";
 
 const MyTasks = () => {
   const { user } = useContext(AuthContext);
@@ -10,12 +11,14 @@ const MyTasks = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user?.email) return;
+
     setLoading(true);
     fetch("https://ferelancemarketplace.vercel.app/add-task")
       .then((res) => res.json())
-      .then((data) => {
-        const usertaks = data.filter((taks) => taks.userEmail === user.email);
-        setTasks(usertaks);
+       .then((data) => {
+     const mydata = data.filter((item) => item.postedBy.email === user?.email);
+        setTasks(mydata);
         setLoading(false);
       })
       .catch((err) => {
@@ -23,8 +26,10 @@ const MyTasks = () => {
         setLoading(false);
       });
   }, [user]);
+  
+  
 
-  const handledelete = (id) => {
+  const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -39,27 +44,33 @@ const MyTasks = () => {
           method: "DELETE",
         })
           .then((res) => res.json())
-          .then((data) => {
-            deleted(id);
+          .then(() => {
+            removeTaskFromList(id);
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Your task has been deleted.",
               icon: "success",
             });
           });
       }
     });
   };
-  const deleted = (id) => {
-    let updatetask = tasks.filter((coffe) => coffe._id !== id);
-    setTasks(updatetask);
+
+  const removeTaskFromList = (id) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
   };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-60">
-        <svg
-          className="animate-spin h-10 w-10 text-blue-600"
+        <motion.svg
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+          className="h-10 w-10 text-blue-600"
           viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="4"
         >
           <circle
             className="opacity-25"
@@ -74,7 +85,7 @@ const MyTasks = () => {
             fill="currentColor"
             d="M4 12a8 8 0 018-8v8z"
           />
-        </svg>
+        </motion.svg>
         <span className="ml-3 text-lg font-medium text-blue-600">
           Loading tasks...
         </span>
@@ -103,38 +114,46 @@ const MyTasks = () => {
               </tr>
             </thead>
             <tbody className="bg-white">
-              {tasks.map((task) => (
-                <tr
-                  key={task._id}
-                  className="border-t hover:bg-gray-50 transition"
-                >
-                  <td className="px-4 py-2">{task.title}</td>
-                  <td className="px-4 py-2">{task.category}</td>
-                  <td className="px-4 py-2">{task.deadline}</td>
-                  <td className="px-4 py-2">${task.budget}</td>
-                  <td className="px-4 py-2 flex flex-wrap gap-2">
-                    <Link
-                      to={`/update-task/${task._id}`}
-                      className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-sm"
-                    >
-                      Update
-                    </Link>
-
-                    <button
-                      disabled
-                      className="cursor-not-allowed bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
-                    >
-                      {task.bids}
-                    </button>
-                    <button
-                      onClick={() => handledelete(task._id)}
-                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
-                    >
-                      <MdDelete />
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              <AnimatePresence>
+                {tasks.map((task) => (
+                  <motion.tr
+                    key={task._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="border-t hover:bg-gray-50 transition"
+                  >
+                    <td className="px-4 py-2">{task.title}</td>
+                    <td className="px-4 py-2">{task.category}</td>
+                    <td className="px-4 py-2">
+                      {new Date(task.deadline).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-2">${task.budget}</td>
+                    <td className="px-4 py-2 flex flex-wrap gap-2">
+                      <Link
+                        to={`/update-task/${task._id}`}
+                        className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-sm"
+                      >
+                        Update
+                      </Link>
+                      <button
+                        disabled
+                        className="cursor-not-allowed bg-blue-500 text-white px-3 py-1 rounded text-sm"
+                        title={`${task.bidsCount || 0} Bids`}
+                      >
+                        {task.bidsCount || 0}
+                      </button>
+                      <button
+                        onClick={() => handleDelete(task._id)}
+                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
+                      >
+                        <MdDelete />
+                      </button>
+                    </td>
+                  </motion.tr>
+                ))}
+              </AnimatePresence>
             </tbody>
           </table>
         </div>
